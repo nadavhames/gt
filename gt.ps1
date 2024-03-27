@@ -48,3 +48,19 @@ function gt {
         }
     }
 }
+
+function fcd {
+    try {
+        $item = Get-Item $(fzf)
+        if ($null -ne $item) {
+            if ($item.PSIsContainer) {
+                Set-Location $item.FullName
+            } else {
+                $selection = $item.FullName
+                if ($selection) {
+                    nvim $selection
+                }
+            }
+        }
+    } catch {}
+}
